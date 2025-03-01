@@ -64,4 +64,66 @@
   "status": "error",
   "message": "Email already exists"
 }
+
+## Login Endpoint
+
+**Endpoint:** `/api/users/login`
+**Method:** POST
+**Description:** Authenticate a user and receive an access token.
+
+### Request Body
+
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+#### Required Fields:
+- `email`: Registered email address
+- `password`: Account password
+
+### Response Status Codes
+
+| Status Code | Description |
+|------------|-------------|
+| 200 | Login successful |
+| 400 | Bad Request - Invalid credentials |
+| 401 | Unauthorized - Invalid email or password |
+| 500 | Internal Server Error |
+
+### Example Request
+
+```json
+{
+  "email": "john@example.com",
+  "password": "secret123"
+}
+```
+
+### Example Success Response
+
+```json
+{
+  "status": "success",
+  "message": "Login successful",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "user": {
+      "id": "user_id",
+      "username": "john_doe",
+      "email": "john@example.com"
+    }
+  }
+}
+```
+
+### Example Error Response
+
+```json
+{
+  "status": "error",
+  "message": "Invalid email or password"
+}
 ```
