@@ -64,6 +64,7 @@
   "status": "error",
   "message": "Email already exists"
 }
+```
 
 ## Login Endpoint
 
@@ -125,5 +126,88 @@
 {
   "status": "error",
   "message": "Invalid email or password"
+}
+```
+
+## Profile Endpoint
+
+**Endpoint:** `/api/users/profile`
+**Method:** GET
+**Description:** Get the authenticated user's profile information.
+**Authentication:** Required (Bearer Token)
+
+### Headers
+```
+Authorization: Bearer <token>
+```
+
+### Response Status Codes
+
+| Status Code | Description |
+|------------|-------------|
+| 200 | Success |
+| 401 | Unauthorized - Invalid or missing token |
+| 500 | Internal Server Error |
+
+### Example Success Response
+
+```json
+{
+  "status": "success",
+  "data": {
+    "user": {
+      "id": "user_id",
+      "username": "john_doe",
+      "email": "john@example.com",
+      "phone": "1234567890"
+    }
+  }
+}
+```
+
+### Example Error Response
+
+```json
+{
+  "status": "error",
+  "message": "Unauthorized access"
+}
+```
+
+## Logout Endpoint
+
+**Endpoint:** `/api/users/logout`
+**Method:** GET
+**Description:** Invalidate the current user's session token.
+**Authentication:** Required (Bearer Token)
+
+### Headers
+```
+Authorization: Bearer <token>
+```
+
+### Response Status Codes
+
+| Status Code | Description |
+|------------|-------------|
+| 200 | Successfully logged out |
+| 401 | Unauthorized - Invalid or missing token |
+| 500 | Internal Server Error |
+
+### Example Success Response
+
+```json
+{
+  "status": "success",
+  "message": "Successfully logged out"
+}
+```
+
+### Example Error Response
+
+```json
+{
+  "status": "error",
+  "message": "Unauthorized access"
 }
 ```
