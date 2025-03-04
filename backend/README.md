@@ -211,3 +211,111 @@ Authorization: Bearer <token>
   "message": "Unauthorized access"
 }
 ```
+
+## Captain API Documentation
+
+### Register Captain Endpoint
+
+**Endpoint:** `/api/captains/register`
+**Method:** POST
+**Description:** Register a new captain account in the system.
+
+### Request Body
+
+```json
+{
+  "fullname": {
+    "firstname": "string",
+    "lastname": "string"
+  },
+  "email": "string",
+  "password": "string",
+  "vehicle": {
+    "color": "string",
+    "plate": "string",
+    "capacity": "number",
+    "vehicleType": "string"
+  }
+}
+```
+
+#### Required Fields:
+- `fullname.firstname`: Captain's first name (minimum 3 characters)
+- `email`: Valid email address
+- `password`: Password (minimum 6 characters)
+- `color`: Vehicle color (minimum 3 characters)
+- `plate`: Vehicle plate number (minimum 3 characters)
+- `capacity`: Vehicle capacity (minimum 1)
+- `vehicleType`: Type of vehicle (must be one of: 'car', 'motorcycle', 'auto')
+
+### Response Status Codes
+
+| Status Code | Description |
+|------------|-------------|
+| 201 | Captain successfully registered |
+| 400 | Bad Request - Invalid input data or captain already exists |
+| 500 | Internal Server Error |
+
+### Example Request
+
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john@example.com",
+  "password": "secret123",
+  "vehicle": {
+    "color": "Black",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+### Example Success Response
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "captain": {
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john@example.com",
+    "vehicle": {
+      "color": "Black",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    },
+    "status": "inactive",
+    "_id": "captain_id"
+  }
+}
+```
+
+### Example Error Response
+
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid email",
+      "param": "email",
+      "location": "body"
+    }
+  ]
+}
+```
+
+or
+
+```json
+{
+  "message": "Captain already exists"
+}
+```
